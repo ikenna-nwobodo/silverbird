@@ -1,6 +1,7 @@
 import Branch from "./components/Branch";
 import Movie from "./components/Movie";
 import Nav from "./components/Nav";
+import movies from "./data/movies";
 
 function App() {
   const branches = [
@@ -33,239 +34,18 @@ function App() {
           <section className="now-showing min-h-screen">
             <p className="font-semibold text-2xl mb-7">Now Showing</p>
             <div className="grid grid-cols-5 gap-6">
-              <Movie
-                poster="./assets/images/movie2.png"
-                title="Dune"
-                release_date="Today"
-                genre="Drama"
-                duration="2hrs"
-                language="English"
-              />
-              <div className="relative movie overflow-hidden cursor-pointer bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/movie2.png')] bgi h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent overlay absolute bottom-0 h-2/3 w-full"></div>
-                <div className="z-20 overlay-img absolute bottom-0 h-full w-full hidden ">
-                  <button className="text-sm border-white px-4 py-2 border  hover:bg-white hover:text-primary font-medium">
-                    Get Tickets
-                  </button>
-                </div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/movie.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/movie3.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/banner.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/movie.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/movie3.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/movie.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/banner.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/movie.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
-              <div className="relative bg-black min-h-[350px]">
-                <div className="bg-[url('./assets/images/movie2.png')] h-full w-full absolute top-0 bg-cover bg-center"></div>
-                <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
-                  <p className="text-2xl font-medium">Venom</p>
-                  <span className="text-[10px] font-semibold text-white/40">
-                    March 7, 2024
-                  </span>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Genre: </span>
-                    Horror, Drama
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Duration: </span>
-                    1hr 42mins
-                  </p>
-                  <p className="text-[10px] font-semibold">
-                    <span className="text-white/40">Language: </span>
-                    English
-                  </p>
-                </div>
-                <div className="bg-gradient-to-t z-10 from-black to-transparent absolute top-0 h-full w-full"></div>
-              </div>
+              {movies.map((movie) => {
+                return (
+                  <Movie
+                    poster={movie.poster}
+                    title={movie.title}
+                    release_date={movie.release_date}
+                    genres={movie.genre}
+                    duration={movie.duration}
+                    languages={movie.language}
+                  />
+                );
+              })}
             </div>
             <div className="mt-10 grid place-items-center">
               <button className="border border-white py-2 px-5 text-sm hover:bg-white hover:text-primary font-medium">
