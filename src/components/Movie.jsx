@@ -1,8 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function Movie({ poster, title, release_date, genres, duration, languages }) {
+function Movie({
+  id,
+  poster,
+  title,
+  release_date,
+  genres,
+  duration,
+  languages,
+}) {
   return (
-    <div className="relative movie overflow-hidden cursor-pointer bg-black min-h-[350px]">
+    <Link
+      to={`/movie/${id}`}
+      className="relative movie overflow-hidden cursor-pointer bg-black min-h-[350px]"
+    >
       <div
         style={{ "--image-url": `url('${poster}')` }}
         className={`bg-[image:var(--image-url)] bgi h-full w-full absolute top-0 bg-cover bg-center`}
@@ -35,11 +47,14 @@ function Movie({ poster, title, release_date, genres, duration, languages }) {
       </div>
       <div className="bg-gradient-to-t z-10 from-black to-transparent overlay absolute bottom-0 h-2/3 w-full"></div>
       <div className="z-20 overlay-img absolute bottom-0 h-full w-full hidden ">
-        <button className="text-sm border-white px-4 py-2 border  hover:bg-white hover:text-primary font-medium">
+        <Link
+          to={`/movie/${id}`}
+          className="text-sm border-white px-4 py-2 border  hover:bg-white hover:text-primary font-medium"
+        >
           Get Tickets
-        </button>
+        </Link>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -39,3 +39,27 @@ code {
   display: grid;
   place-items: center;
 }
+.dropd {
+  /* flex-grow: 1; */
+  max-width: 400px;
+}
+.dropd-toggle {
+  padding: 10px !important;
+  height: 35px !important;
+  border-radius: 5px !important;
+  font-size: 15px !important;
+}
+
+.btn:hover .fa-solid {
+  transform: translateX(6px);
+  color: rgb(2 59 93);
+}
+
+.btn-i:hover .fa-solid {
+  transform: translateX(-3px);
+}
+
+.active {
+  background-color: white;
+  color: black;
+}
