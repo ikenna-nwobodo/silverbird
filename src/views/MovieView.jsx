@@ -82,8 +82,14 @@ function MovieView() {
               <i class="fa-solid fa-arrow-left"></i>
               Back
             </Link>
+
+            <div
+              style={{ "--image-url": `url('${mov.poster}')` }}
+              className={`bg-[image:var(--image-url)] bgi h-[400px] w-full md:hidden block absolute top-0 left-0 bg-cover bg-top`}
+            ></div>
+            <div className="bg-gradient-to-t from-black via-black/40 to-transparent md:hidden block absolute top-0 left-0 h-[400px] w-full"></div>
             <div className="flex md:flex-row flex-col gap-4 md:gap-10">
-              <div className="relative md:w-[350px] overflow-hidden bg-black min-h-[200px] bg-top md:min-h-[500px] md:h-[500px]">
+              <div className="relative hidden md:block md:w-[350px] overflow-hidden bg-black min-h-[200px] bg-top md:min-h-[500px] md:h-[500px]">
                 <div
                   style={{ "--image-url": `url('${mov.poster}')` }}
                   className={`bg-[image:var(--image-url)] bgi h-full w-full absolute top-0 bg-cover bg-center`}
