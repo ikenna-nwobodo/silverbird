@@ -16,7 +16,7 @@ function Home() {
 
   return (
     <>
-      <section className="bg-red-700 h-[300px] md:h-[500px] overflow-hidden absolute top-0 w-full">
+      <section className="h-[300px] md:h-[500px] overflow-hidden absolute top-0 w-full">
         <div className="bg-[url('../src/assets/images/topbanner.png')] bg-right md:bg-center absolute top-0 w-full bg-cover h-full"></div>
         <div className="h-[300px] md:h-[500px] bg-black/40 w-full p-3 absolute top-0"></div>
       </section>
@@ -32,8 +32,18 @@ function Home() {
           </div>
         </section>
         <NowShowing />
-        <section className="coming-soon min-h-screen bg-red-600">
+        <section className="coming-soon flex flex-col min-h-screen">
           <p className="font-semibold text-2xl mb-7">Coming Soon</p>
+          <div className="border flex-1 grid place-items-center p-10">
+            <div className="overflow-hidden relative h-full w-full p-1 flex justify-center items-center">
+              <div className="bg-sky-700 absolute slide z-10 h-full w-[65vw] p-2 rounded-2xl shadow-2xl grid place-items-center">
+                Play
+              </div>
+              <div className="bg-yellow-700 h-full slide left-[72vw]  w-[65vw] absolute p-2 rounded-2xl grid place-items-center">
+                Play
+              </div>
+            </div>
+          </div>
         </section>
         <Footer />
       </div>

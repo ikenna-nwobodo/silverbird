@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="footer min-h-[50vh] pt-8">
+    <footer className="footer min-h-[50vh] pt-8 mb-8">
       <div className="flex md:flex-row flex-col h-full">
         <div className="w-[20%]">
           <img
@@ -76,7 +76,7 @@ function Footer() {
                   <img
                     src={require("../assets/images/icons/fb.png")}
                     alt=""
-                    width={30}
+                    width={20}
                   />
                 </a>
                 <a
@@ -86,7 +86,7 @@ function Footer() {
                   <img
                     src={require("../assets/images/icons/x.png")}
                     alt=""
-                    width={30}
+                    width={20}
                   />
                 </a>
                 <a
@@ -96,7 +96,7 @@ function Footer() {
                   <img
                     src={require("../assets/images/icons/ig.png")}
                     alt=""
-                    width={30}
+                    width={20}
                   />
                 </a>
               </div>

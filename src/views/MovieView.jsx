@@ -48,7 +48,7 @@ function MovieView() {
   };
 
   return (
-    <div className="md:w-10/12 min-h-max w-11/12 md:mt-10 mt-6">
+    <div className="md:w-10/12 min-h-[70vh] w-11/12 md:mt-10 mt-6">
       {trailer && (
         <div className="bg-black/70 backdrop-blur-lg w-full h-screen z-30 flex flex-col justify-center items-center overflow-hidden fixed top-0 left-0">
           <div
@@ -83,7 +83,7 @@ function MovieView() {
               Back
             </Link>
             <div className="flex md:flex-row flex-col gap-4 md:gap-10">
-              <div className="relative md:w-[350px] overflow-hidden bg-black min-h-[200px] md:min-h-[500px]">
+              <div className="relative md:w-[350px] overflow-hidden bg-black min-h-[200px] bg-top md:min-h-[500px] md:h-[500px]">
                 <div
                   style={{ "--image-url": `url('${mov.poster}')` }}
                   className={`bg-[image:var(--image-url)] bgi h-full w-full absolute top-0 bg-cover bg-center`}
@@ -126,7 +126,7 @@ function MovieView() {
                       <i class="fa-solid fa-film text-primary"></i>
                     </button>
                   </div>
-                  <div className="flex flex-col gap-4">
+                  <div className="flex relative flex-col gap-4">
                     <p className="text-base font-medium">Branch</p>
                     <Dropd
                       placeholder="Select Branch"
@@ -161,7 +161,7 @@ function MovieView() {
                     </ul>
                   </div>
                 </div>
-                <div className="absolute bottom-0">
+                <div className="mt-10 mb-10">
                   <button
                     className={`${
                       isBranch ? "flex" : "hidden"
