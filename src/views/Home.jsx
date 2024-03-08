@@ -1,26 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import branches from "../data/branches";
 import Branch from "../components/Branch";
 import Footer from "../components/Footer";
 import NowShowing from "../components/NowShowing";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 
 function Home() {
-  //   const branches = [
-  //     { id: 1, name: "Ikeja City Mall", title: "icm" },
-  //     { id: 2, name: "Maryland Mall", title: "marylandmall" },
-  //     { id: 3, name: "Banex Mall", title: "banex" },
-  //     { id: 4, name: "Jara Mall", title: "jara" },
-  //     { id: 5, name: "Novare Mall", title: "novare" },
-  //     { id: 6, name: "Palms Mall", title: "palms" },
-  //   ];
-
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [show, setShow] = useState(false);
+  const controlNavbar = () => {
+    if (window.scrollY > 100) {
+      // if scroll down hide the navbar
+      setShow(true);
+    } else if (window.scrollY <= 100) {
+      // if scroll up show the navbar
+      setShow(false);
+    }
+    // remember current page location to use in the next move
+    setLastScrollY(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
   return (
     <>
-      <section className="h-[300px] md:h-[500px] overflow-hidden absolute top-0 w-full">
-        <div className="bg-[url('../src/assets/images/topbanner.png')] bg-right md:bg-center absolute top-0 w-full bg-cover h-full"></div>
-        <div className="h-[300px] md:h-[500px] bg-black/40 w-full p-3 absolute top-0"></div>
+      <section
+        className={`h-[300px] md:h-[500px] overflow-hidden fixed top-0 w-full ${
+          show && "opacity-0"
+        }`}
+      >
+        <Carousel
+          autoPlay
+          infiniteLoop
+          showArrows={false}
+          showStatus={false}
+          showThumbs={false}
+          showIndicators={false}
+        >
+          <div className="bg-[url('../src/assets/images/banners/jl.jpg')] bg-top w-full bg-cover h-[300px] md:h-[500px]"></div>
+          <div className="bg-[url('../src/assets/images/banners/jw.jpg')] bg-center w-full bg-cover h-[300px] md:h-[500px]"></div>
+          <div className="bg-[url('../src/assets/images/banners/bp.jpg')] bg-top w-full bg-cover h-[300px] md:h-[500px]"></div>
+        </Carousel>
+        {/* <div className="bg-[url('../src/assets/images/topbanner.png')] bg-right md:bg-center absolute top-0 w-full bg-cover h-full"></div> */}
+        <div className="h-[300px] md:h-[500px] bg-black/10 w-full p-3 absolute top-0"></div>
       </section>
-      <div className="mt-[300px] md:mt-[500px] w-11/12 md:w-10/12 flex flex-col gap-8">
+      <div className="mt-[300px] md:mt-[500px] relative w-11/12 md:w-10/12 flex flex-col gap-8 ">
         <section className="locations min-h-[80vh]">
           <p className="font-semibold text-2xl mb-7">Locations</p>
           <div className="grid place-items-center">
@@ -32,7 +60,7 @@ function Home() {
           </div>
         </section>
         <NowShowing />
-        <section className="coming-soon flex flex-col min-h-screen">
+        {/* <section className="coming-soon flex flex-col min-h-screen">
           <p className="font-semibold text-2xl mb-7">Coming Soon</p>
           <div className="border flex-1 grid place-items-center p-10">
             <div className="overflow-hidden relative h-full w-full p-1 flex justify-center items-center">
@@ -44,7 +72,7 @@ function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <Footer />
       </div>
     </>

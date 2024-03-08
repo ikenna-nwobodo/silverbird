@@ -71,7 +71,17 @@ code {
 .btn-i:hover .fa-solid {
   transform: translateX(-3px);
 }
+.btna:hover .fa-solid {
+  transform: translateX(6px);
+  color: white;
+}
 
+.btnb:hover .fa-solid {
+  transform: translateX(-3px);
+}
+/* .btn-i:hover .fa-solid {
+  transform: translateX(-3px);
+} */
 .active {
   background-color: white;
   color: black;
