@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import movies from "../data/movies";
 import Dropd from "react-dropd";
 import branches from "../data/branches";
+import Snack from "../components/Snack";
 
 function MovieView() {
   const [trailer, setTrailer] = useState(false);
@@ -117,9 +118,9 @@ function MovieView() {
             )}
             <div
               style={{ "--image-url": `url('${mov.poster}')` }}
-              className={`bg-[image:var(--image-url)] bgi h-[400px] w-full md:hidden block absolute top-0 left-0 bg-cover bg-top`}
+              className={`bg-[image:var(--image-url)] bgi h-[300px] md:h-[400px] w-full md:hidden block fixed md:absolute top-0 left-0 bg-cover bg-top`}
             ></div>
-            <div className="bg-gradient-to-t from-black via-black/40 to-transparent md:hidden block absolute top-0 left-0 h-[400px] w-full"></div>
+            <div className="bg-gradient-to-t from-black via-black/40 to-transparent md:hidden block fixed md:absolute top-0 left-0 h-[300px] md:h-[400px] w-full"></div>
             <div className="flex md:flex-row flex-col gap-4 md:gap-10">
               <div className="relative hidden md:block md:w-[350px] overflow-hidden bg-black min-h-[200px] bg-top md:min-h-[500px] md:h-[500px]">
                 <div
@@ -128,9 +129,9 @@ function MovieView() {
                 ></div>
                 <div className="bg-black/30 z-10 overlay absolute bottom-0 h-full w-full"></div>
               </div>
-              <>
+              <div className="flex-1 grid place-items-center">
                 {currentView === 0 && (
-                  <div className="md:p-4 relative flex-1 flex flex-col justify-between gap-4">
+                  <div className="relative flex-1 w-full flex flex-col justify-between gap-4">
                     <div className="flex flex-col gap-4">
                       <p className="text-4xl md:text-6xl font-medium">
                         {mov.title}
@@ -202,6 +203,35 @@ function MovieView() {
                           })}
                         </ul>
                       </div>
+                      <div className="w-max flex flex-col gap-2">
+                        <p className="text-sm">Email Address</p>
+                        <input
+                          type="text"
+                          className="text-black w-[250px] p-2 text-sm outline-0 rounded-sm"
+                        />
+                      </div>
+                      <div className="w-max flex flex-col gap-2">
+                        <p className="text-sm">Tickets</p>
+                        <div className="flex items-center gap-4">
+                          <button
+                            onClick={() => handleValue(2)}
+                            className={`${
+                              value <= 0
+                                ? "pointer-events-none bg-white/60 text-primary/40"
+                                : "pointer-events-auto bg-white"
+                            }  text-primary selection:bg-transparent w-8 py-1`}
+                          >
+                            -
+                          </button>
+                          <span>{value}</span>
+                          <button
+                            onClick={() => handleValue(1)}
+                            className="bg-white text-primary w-8 py-1"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
                     </div>
                     <div className="mt-10 md:mt-6 md:mb-0 mb-10">
                       <button
@@ -216,144 +246,30 @@ function MovieView() {
                   </div>
                 )}
                 {currentView === 1 && (
-                  <div className="relative flex-1 flex flex-col justify-between gap-4">
+                  <div className="relative w-full flex-1 flex flex-col justify-between gap-4">
                     <p className="text-4xl font-medium">{mov.title}</p>
                     <p className="text-lg font-medium ">Select Refreshments</p>
-                    <div className="flex-1 flex flex-col gap-4 overflow-scroll max-h-[45vh]">
-                      <div className="flex gap-2">
-                        <img
-                          src={require("../assets/images/fries.png")}
-                          alt="img"
-                        />
-                        <div className="flex-1 flex justify-between items-center">
-                          <div className="flex h-full w-max flex-col justify-between">
-                            <p>Fries</p>
-                            <div className="flex items-center gap-2">
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                S
-                              </button>
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                L
-                              </button>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-4">
-                            <button
-                              onClick={() => handleValue(2)}
-                              className={`${
-                                value <= 0
-                                  ? "pointer-events-none bg-white/60 text-primary/40"
-                                  : "pointer-events-auto bg-white"
-                              }  text-primary selection:bg-transparent w-8 py-1`}
-                            >
-                              -
-                            </button>
-                            <span>{value}</span>
-                            <button
-                              onClick={() => handleValue(1)}
-                              className="bg-white text-primary w-8 py-1"
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <img
-                          src={require("../assets/images/hotdogs.png")}
-                          alt="img"
-                        />
-                        <div className="flex-1 flex justify-between items-center">
-                          <div className="flex h-full w-max flex-col justify-between">
-                            <p>Hotdogs</p>
-                            <div className="flex items-center gap-2">
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                S
-                              </button>
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                L
-                              </button>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-4">
-                            <button>-</button>
-                            <span>1</span>
-                            <button>+</button>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <img
-                          src={require("../assets/images/soda.png")}
-                          alt="img"
-                        />
-                        <div className="flex-1 flex justify-between items-center">
-                          <div className="flex h-full w-max flex-col justify-between">
-                            <p>Soda</p>
-                            <div className="flex items-center gap-2">
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                S
-                              </button>
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                L
-                              </button>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-4">
-                            <button>-</button>
-                            <span>1</span>
-                            <button>+</button>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <img
-                          src={require("../assets/images/water.png")}
-                          alt="img"
-                        />
-                        <div className="flex-1 flex justify-between items-center">
-                          <div className="flex h-full w-max flex-col justify-between">
-                            <p>Water</p>
-                            <div className="flex items-center gap-2">
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                S
-                              </button>
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                L
-                              </button>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-4">
-                            <button>-</button>
-                            <span>1</span>
-                            <button>+</button>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <img
-                          src={require("../assets/images/popcorn.png")}
-                          alt="img"
-                        />
-                        <div className="flex-1 flex justify-between items-center">
-                          <div className="flex h-full w-max flex-col justify-between">
-                            <p>Popcorn</p>
-                            <div className="flex items-center gap-2">
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                S
-                              </button>
-                              <button className="grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-sm w-8 h-8">
-                                L
-                              </button>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-4">
-                            <button>-</button>
-                            <span>1</span>
-                            <button>+</button>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="flex-1 flex flex-col gap-4 overflow-scroll md:max-h-[45vh]">
+                      <Snack
+                        title={"fries"}
+                        image={require("../assets/images/fries.png")}
+                      />
+                      <Snack
+                        title={"hotdogs"}
+                        image={require("../assets/images/hotdogs.png")}
+                      />
+                      <Snack
+                        title={"soda"}
+                        image={require("../assets/images/soda.png")}
+                      />
+                      <Snack
+                        title={"water"}
+                        image={require("../assets/images/water.png")}
+                      />
+                      <Snack
+                        title={"popcorn"}
+                        image={require("../assets/images/popcorn.png")}
+                      />
                     </div>
                     <div className="mt-10 md:mt-6 md:mb-0 mb-10">
                       <button
@@ -367,7 +283,7 @@ function MovieView() {
                   </div>
                 )}
                 {currentView === 2 && (
-                  <div className="relative flex-1 flex flex-col gap-4">
+                  <div className="relative w-full flex-1 flex flex-col gap-4">
                     <p className="text-4xl font-medium">{mov.title}</p>
                     <p className="text-lg font-medium ">Receipt</p>
                     <div className="flex flex-col gap-4 mb-8">
@@ -415,7 +331,7 @@ function MovieView() {
                   </div>
                 )}
                 {currentView === 3 && (
-                  <div className="relative flex-1 flex flex-col justify-center items-center gap-4">
+                  <div className="relative w-full flex-1 flex flex-col justify-center items-center gap-4">
                     <p className="text-3xl font-semibold">Order Confirmed</p>
                     <p className="text-xs">
                       All details have been sent to your mail
@@ -437,7 +353,7 @@ function MovieView() {
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             </div>
           </div>
         );
