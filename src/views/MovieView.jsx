@@ -18,26 +18,26 @@ function MovieView() {
   });
   const [branch, setBranch] = useState(null);
   const [isBranch, setIsBranch] = useState(false);
+  const [email, setEmail] = useState("");
   const [currentView, setCurrentView] = useState(0);
-  const [value, setValue] = useState(
-    0
-    // {
-    // hotdogs: { size: "", quantity: 0 },
-    // popcorn: { size: "", quantity: 0 },
-    // water: { size: "", quantity: 0 },
-    // soda: { size: "", quantity: 0 },
-    // fries: { size: "", quantity: 0 },
-    // }
-  );
-
-  useEffect(() => {
-    if (branch !== null) {
-      setIsBranch(true);
-    }
-  }, [branch]);
+  const [initialForm, setInitialForm] = useState({
+    movie: "",
+    tickets: 0,
+    branch: "",
+    email: "",
+    time: "",
+  });
+  const [movieTime, setMovieTime] = useState(null);
+  const [tickets, setTickets] = useState(0);
+  const [snack, setsnack] = useState({
+    title: "",
+    quantity: 0,
+  });
+  const [refreshments, setRefreshments] = useState([]);
 
   const toggleActive = (index) => {
     setActiveSlot({ ...timeSlot, activeObject: timeSlot.objects[index] });
+    setMovieTime(timeSlot.objects[index].time);
   };
   const togglestyle = (index) => {
     if (timeSlot.objects[index] === timeSlot.activeObject) {
@@ -59,18 +59,59 @@ function MovieView() {
   const handleNext = (id) => {
     setCurrentView(id);
   };
-
   const handleValue = (id) => {
     if (id === 1) {
-      setValue(value + 1);
+      setTickets(tickets + 1);
     }
     if (id === 2) {
-      setValue(value - 1);
+      setTickets(tickets - 1);
     }
   };
+  const checkForm = (id) => {
+    if (
+      initialForm.branch === "" ||
+      initialForm.email === "" ||
+      initialForm.movie === "" ||
+      initialForm.tickets === 0 ||
+      initialForm.time === ""
+    ) {
+      window.alert("fill the form nigga");
+    } else {
+      handleNext(id);
+    }
+    setInitialForm({
+      movie: currentMovie[0].title,
+      tickets: tickets,
+      branch: branch,
+      email: email,
+      time: movieTime,
+    });
+  };
+  const snackData = (data) => {
+    setsnack(data);
+  };
+  console.log(snack);
+
+  useEffect(() => {
+    if (branch !== null) {
+      setIsBranch(true);
+    }
+    setInitialForm({
+      movie: currentMovie[0].title,
+      tickets: tickets,
+      branch: branch,
+      email: email,
+      time: movieTime,
+    });
+    // refreshments.push(snack);
+  }, [branch]);
+  // setRefreshments([snack]);
+  console.log(refreshments);
+  // console.log(initialForm);
+  // console.log("form: ", initialForm);
 
   return (
-    <div className="md:w-10/12 min-h-[70vh] w-11/12  mt-6">
+    <div className="md:w-10/12 min-h-[70vh] w-11/12 mt-6">
       {trailer && (
         <div className="bg-black/70 backdrop-blur-lg w-full h-screen z-30 flex flex-col justify-center items-center overflow-hidden fixed top-0 left-0">
           <div
@@ -95,9 +136,9 @@ function MovieView() {
           </div>
         </div>
       )}
-      {currentMovie.map((mov) => {
+      {currentMovie.map((mov, id) => {
         return (
-          <div className="">
+          <div className="" key={id}>
             {currentView === 0 && (
               <Link
                 to={"/"}
@@ -121,7 +162,7 @@ function MovieView() {
               className={`bg-[image:var(--image-url)] bgi h-[300px] md:h-[400px] w-full md:hidden block fixed md:absolute top-0 left-0 bg-cover bg-top`}
             ></div>
             <div className="bg-gradient-to-t from-black via-black/40 to-transparent md:hidden block fixed md:absolute top-0 left-0 h-[300px] md:h-[400px] w-full"></div>
-            <div className="flex md:flex-row flex-col gap-4 md:gap-10">
+            <div className="flex md:flex-row flex-col gap-4 md:gap-10 ">
               <div className="relative hidden md:block md:w-[350px] overflow-hidden bg-black min-h-[200px] bg-top md:min-h-[500px] md:h-[500px]">
                 <div
                   style={{ "--image-url": `url('${mov.poster}')` }}
@@ -140,8 +181,8 @@ function MovieView() {
                         <div className="text-[12px] flex items-center gap-1 font-medium">
                           <span className="text-white/40">Genre: </span>
                           <div className="flex items-center gap-1">
-                            {mov.genre.map((genre) => {
-                              return <span>{genre}</span>;
+                            {mov.genre.map((genre, id) => {
+                              return <span key={id}>{genre}</span>;
                             })}
                           </div>
                         </div>
@@ -152,8 +193,8 @@ function MovieView() {
                         <div className="text-[12px] flex items-center gap-1 font-medium">
                           <span className="text-white/40">Language: </span>
                           <div className="flex items-center gap-1">
-                            {mov.language.map((language) => {
-                              return <span>{language}</span>;
+                            {mov.language.map((language, id) => {
+                              return <span key={id}>{language}</span>;
                             })}
                           </div>
                         </div>
@@ -206,7 +247,10 @@ function MovieView() {
                       <div className="w-max flex flex-col gap-2">
                         <p className="text-sm">Email Address</p>
                         <input
-                          type="text"
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           className="text-black w-[250px] p-2 text-sm outline-0 rounded-sm"
                         />
                       </div>
@@ -216,14 +260,14 @@ function MovieView() {
                           <button
                             onClick={() => handleValue(2)}
                             className={`${
-                              value <= 0
+                              tickets <= 0
                                 ? "pointer-events-none bg-white/60 text-primary/40"
                                 : "pointer-events-auto bg-white"
                             }  text-primary selection:bg-transparent w-8 py-1`}
                           >
                             -
                           </button>
-                          <span>{value}</span>
+                          <span>{tickets}</span>
                           <button
                             onClick={() => handleValue(1)}
                             className="bg-white text-primary w-8 py-1"
@@ -235,7 +279,8 @@ function MovieView() {
                     </div>
                     <div className="mt-10 md:mt-6 md:mb-0 mb-10">
                       <button
-                        onClick={() => handleNext(1)}
+                        type="submit"
+                        onClick={() => checkForm(1)}
                         className={`${
                           isBranch ? "flex" : "hidden"
                         } bg-primary capitalize hover:bg-white hover:text-primary btn text-sm  items-center justify-center gap-2 font-medium px-6 flex-grow min-w-[200px] py-2`}
@@ -248,26 +293,31 @@ function MovieView() {
                 {currentView === 1 && (
                   <div className="relative w-full flex-1 flex flex-col justify-between gap-4">
                     <p className="text-4xl font-medium">{mov.title}</p>
-                    <p className="text-lg font-medium ">Select Refreshments</p>
+                    <p className="text-lg font-medium ">Select snack</p>
                     <div className="flex-1 flex flex-col gap-4 overflow-scroll md:max-h-[45vh]">
                       <Snack
                         title={"fries"}
+                        data={snackData}
                         image={require("../assets/images/fries.png")}
                       />
                       <Snack
                         title={"hotdogs"}
+                        data={snackData}
                         image={require("../assets/images/hotdogs.png")}
                       />
                       <Snack
                         title={"soda"}
+                        data={snackData}
                         image={require("../assets/images/soda.png")}
                       />
                       <Snack
                         title={"water"}
+                        data={snackData}
                         image={require("../assets/images/water.png")}
                       />
                       <Snack
                         title={"popcorn"}
+                        data={snackData}
                         image={require("../assets/images/popcorn.png")}
                       />
                     </div>
@@ -288,9 +338,9 @@ function MovieView() {
                     <p className="text-lg font-medium ">Receipt</p>
                     <div className="flex flex-col gap-4 mb-8">
                       <div className="flex items-center gap-3">
-                        <p>Movie Ticket</p>
+                        <p>Movie Ticket x {initialForm.tickets}</p>
                         <span className="flex-1 h-[1px] bg-white"></span>
-                        <p>1000 x 2</p>
+                        <p>{1000 * initialForm.tickets}</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <p>Soda</p>
