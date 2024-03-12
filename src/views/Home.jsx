@@ -29,7 +29,7 @@ function Home() {
   return (
     <>
       <section
-        className={`h-[300px] md:h-[80vh] overflow-hidden fixed top-0 w-full ${
+        className={`h-[50vh] md:h-[80vh] overflow-hidden fixed top-0 w-full ${
           show && "opacity-0"
         }`}
       >
@@ -41,15 +41,15 @@ function Home() {
           showThumbs={false}
           showIndicators={false}
         >
-          <div className="bg-[url('../src/assets/images/banners/smd.jpg')] bg-center w-full bg-cover h-[300px] md:h-[80vh]"></div>
-          <div className="bg-[url('../src/assets/images/banners/gd.jpg')] bg-center w-full bg-cover h-[300px] md:h-[80vh]"></div>
-          <div className="bg-[url('../src/assets/images/banners/ds.jpg')] bg-center w-full bg-cover h-[300px] md:h-[80vh]"></div>
-          <div className="bg-[url('../src/assets/images/banners/th.jpg')] bg-top w-full bg-cover h-[300px] md:h-[80vh]"></div>
+          <div className="bg-[url('../src/assets/images/banners/smd.jpg')] bg-center w-full bg-cover h-[50vh] md:h-[80vh]"></div>
+          <div className="bg-[url('../src/assets/images/banners/gd.jpg')] bg-center w-full bg-cover h-[50vh] md:h-[80vh]"></div>
+          <div className="bg-[url('../src/assets/images/banners/ds.jpg')] bg-center w-full bg-cover h-[50vh] md:h-[80vh]"></div>
+          <div className="bg-[url('../src/assets/images/banners/th.jpg')] bg-top w-full bg-cover h-[50vh] md:h-[80vh]"></div>
         </Carousel>
         {/* <div className="bg-[url('../src/assets/images/topbanner.png')] bg-right md:bg-center absolute top-0 w-full bg-cover h-full"></div> */}
-        <div className="h-[300px] md:h-[80vh] bg-gradient-to-t from-black to-transparent w-full p-3 absolute top-0"></div>
+        <div className="h-[50vh] md:h-[80vh] bg-gradient-to-t from-black to-transparent w-full p-3 absolute top-0"></div>
       </section>
-      <div className="mt-[300px] md:mt-[500px] relative w-11/12 md:w-10/12 flex flex-col gap-8 ">
+      <div className="mt-[150px] md:mt-[300px] relative w-11/12 md:w-10/12 flex flex-col gap-8 ">
         <section className="locations min-h-[80vh]">
           <p className="font-semibold text-2xl mb-7">Locations</p>
           <div className="grid place-items-center">
