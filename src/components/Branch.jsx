@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Branch({ branch }) {
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <div
       style={{ "--image-url": `url('${branch.image}')` }}
@@ -10,6 +13,7 @@ function Branch({ branch }) {
       <p className="relative z-10 text-xl font-medium">{branch.name}</p>
       <Link
         to={`/branch/${branch.title}`}
+        onClick={handleClick}
         className="text-xs bg-primary hover:bg-white hover:text-primary relative z-10 p-2"
       >
         Make a Reservation

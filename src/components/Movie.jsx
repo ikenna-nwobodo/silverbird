@@ -10,14 +10,18 @@ function Movie({
   duration,
   languages,
 }) {
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <Link
       to={`/movie/${id}`}
+      onClick={handleClick}
       className="relative movie overflow-hidden cursor-pointer bg-black min-h-[350px]"
     >
       <div
         style={{ "--image-url": `url('${poster}')` }}
-        className={`bg-[image:var(--image-url)] bgi h-full w-full absolute top-0 bg-cover bg-center`}
+        className={`bg-[image:var(--image-url)] bgi h-full w-full absolute top-0 bg-cover bg-top`}
       ></div>
       <div className="absolute bottom-0 z-30 flex flex-col px-2 pb-2">
         <p className="text-2xl font-medium">{title}</p>
