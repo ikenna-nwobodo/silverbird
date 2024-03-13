@@ -29,10 +29,7 @@ function MovieView() {
   });
   const [movieTime, setMovieTime] = useState(null);
   const [tickets, setTickets] = useState(0);
-  const [snack, setsnack] = useState({
-    title: "",
-    quantity: 0,
-  });
+  const [snack, setsnack] = useState([]);
   const [refreshments, setRefreshments] = useState([]);
 
   const toggleActive = (index) => {
@@ -88,9 +85,27 @@ function MovieView() {
     });
   };
   const snackData = (data) => {
-    setsnack(data);
+    setsnack([...snack, data]);
+    // setRefreshments([...refreshments, data]);
+    // console.log(data);
   };
   console.log(snack);
+  // console.log(refreshments);
+
+  const latestData = () => {
+    const re = snack.reduce((acc, item) => {
+      if (acc[item.title]) {
+        // If it exists, compare quantities and keep the latest
+        acc[item.title] =
+          item.quantity > acc[item.title].quantity ? item : acc[item.title];
+      } else {
+        // If it's a new title, add it to the accumulator
+        acc[item.title] = item;
+      }
+      return acc;
+    }, {});
+    console.log(re);
+  };
 
   useEffect(() => {
     if (branch !== null) {
@@ -103,12 +118,21 @@ function MovieView() {
       email: email,
       time: movieTime,
     });
-    // refreshments.push(snack);
+    // latestData();
+    snack.reduce((acc, item) => {
+      if (acc[item.title]) {
+        // If it exists, compare quantities and keep the latest
+        acc[item.title] =
+          item.quantity > acc[item.title].quantity ? item : acc[item.title];
+      } else {
+        // If it's a new title, add it to the accumulator
+        acc[item.title] = item;
+      }
+      return acc;
+    }, {});
+    // console.log(re);
+    // setRefreshments([...refreshments, snack]);
   }, [branch]);
-  // setRefreshments([snack]);
-  console.log(refreshments);
-  // console.log(initialForm);
-  // console.log("form: ", initialForm);
 
   return (
     <div className="md:w-10/12 min-h-[70vh] w-11/12 mt-6">

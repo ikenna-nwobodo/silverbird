@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function Snack({ image, title, data }) {
   const [quantity, setquantity] = useState(0);
   const [selections, setselections] = useState({
-    title: "",
+    title: title,
     quantity: 0,
   });
 
@@ -21,10 +21,8 @@ function Snack({ image, title, data }) {
       title: title,
       quantity: quantity,
     });
-  }, [title, quantity]);
-  if (selections.quantity !== 0) {
     data(selections);
-  }
+  }, [title, quantity]);
 
   return (
     <div className="flex gap-4">
