@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App relative bg-gradient-to-tl from-primary via-black to-black min-h-screen flex flex-col items-center">
-        <div className="relative w-full  flex flex-col items-center">
+        <div className="relative w-full flex flex-col items-center">
           <Nav />
           <Routes>
             <Route path="/" element={<Home />} />

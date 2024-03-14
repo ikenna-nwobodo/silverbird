@@ -21,11 +21,6 @@ function NowShowing() {
           );
         })}
       </div>
-      {/* <div className="mt-10 grid place-items-center">
-        <button className="border border-white py-2 px-5 text-sm hover:bg-white hover:text-primary font-medium">
-          Show All
-        </button>
-      </div> */}
     </section>
   );
 }

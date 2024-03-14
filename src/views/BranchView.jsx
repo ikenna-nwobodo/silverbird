@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import branches from "../data/branches";
 import NowShowing from "../components/NowShowing";
+import { motion } from "framer-motion";
 
 function BranchView() {
   const branchTitle = useParams();
@@ -11,7 +12,13 @@ function BranchView() {
 
   return currentBranch.map((branch) => {
     return (
-      <div className="w-10/12 pb-20">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="w-10/12 pb-20"
+      >
         <div
           style={{ "--image-url": `url('${branch.image}')` }}
           className="bg-[image:var(--image-url)] bg-cover bg-top h-[300px] absolute top-0 w-full left-0"
@@ -21,7 +28,7 @@ function BranchView() {
           <p>{branch.name}</p>
         </p>
         <NowShowing />
-      </div>
+      </motion.div>
     );
   });
 }

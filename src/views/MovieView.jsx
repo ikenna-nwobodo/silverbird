@@ -4,6 +4,8 @@ import movies from "../data/movies";
 import Dropd from "react-dropd";
 import branches from "../data/branches";
 import Snack from "../components/Snack";
+import isEmail from "validator/lib/isEmail";
+import { motion } from "framer-motion";
 
 function MovieView() {
   const [trailer, setTrailer] = useState(false);
@@ -30,7 +32,7 @@ function MovieView() {
   const [movieTime, setMovieTime] = useState(null);
   const [tickets, setTickets] = useState(0);
   const [snack, setsnack] = useState([]);
-  const [refreshments, setRefreshments] = useState([]);
+  const [refreshments, setRefreshments] = useState(null);
 
   const toggleActive = (index) => {
     setActiveSlot({ ...timeSlot, activeObject: timeSlot.objects[index] });
@@ -70,9 +72,10 @@ function MovieView() {
       initialForm.email === "" ||
       initialForm.movie === "" ||
       initialForm.tickets === 0 ||
-      initialForm.time === ""
+      initialForm.time === "" ||
+      !isEmail(initialForm.email)
     ) {
-      window.alert("fill the form nigga");
+      window.alert("Ensure all fields are filled correctly");
     } else {
       handleNext(id);
     }
@@ -84,27 +87,27 @@ function MovieView() {
       time: movieTime,
     });
   };
-  const snackData = (data) => {
-    setsnack([...snack, data]);
-    // setRefreshments([...refreshments, data]);
-    // console.log(data);
-  };
-  console.log(snack);
-  // console.log(refreshments);
-
-  const latestData = () => {
+  const setRef = (id) => {
+    handleNext(id);
     const re = snack.reduce((acc, item) => {
       if (acc[item.title]) {
         // If it exists, compare quantities and keep the latest
         acc[item.title] =
           item.quantity > acc[item.title].quantity ? item : acc[item.title];
+        // item.quantity > acc[item.title].quantity ? item : acc[item.title];
       } else {
         // If it's a new title, add it to the accumulator
         acc[item.title] = item;
       }
       return acc;
     }, {});
-    console.log(re);
+    const filteredObject = Object.fromEntries(
+      Object.entries(re).filter(([key, value]) => value.quantity !== 0)
+    );
+    setRefreshments(filteredObject);
+  };
+  const snackData = (data) => {
+    setsnack([...snack, data]);
   };
 
   useEffect(() => {
@@ -118,24 +121,16 @@ function MovieView() {
       email: email,
       time: movieTime,
     });
-    // latestData();
-    snack.reduce((acc, item) => {
-      if (acc[item.title]) {
-        // If it exists, compare quantities and keep the latest
-        acc[item.title] =
-          item.quantity > acc[item.title].quantity ? item : acc[item.title];
-      } else {
-        // If it's a new title, add it to the accumulator
-        acc[item.title] = item;
-      }
-      return acc;
-    }, {});
-    // console.log(re);
-    // setRefreshments([...refreshments, snack]);
-  }, [branch]);
+  }, [branch, tickets, email, movieTime, snack]);
 
   return (
-    <div className="md:w-10/12 min-h-[70vh] w-11/12 mt-6">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      className="md:w-10/12 min-h-[70vh] w-11/12 mt-6"
+    >
       {trailer && (
         <div className="bg-black/70 backdrop-blur-lg w-full h-screen z-30 flex flex-col justify-center items-center overflow-hidden fixed top-0 left-0">
           <div
@@ -175,7 +170,7 @@ function MovieView() {
             {currentView === 1 && (
               <button
                 onClick={() => handleBack(0)}
-                className="mb-4 btn-i px-4 text-xs py-2 border border-white flex gap-2 items-center w-max"
+                className="mb-4 btn-i px-4 text-xs py-2 border relative z-40 border-white flex gap-2 items-center w-max"
               >
                 <i class="fa-solid fa-arrow-left"></i>
                 Back
@@ -196,12 +191,18 @@ function MovieView() {
               </div>
               <div className="flex-1 grid place-items-center">
                 {currentView === 0 && (
-                  <div className="relative flex-1 w-full flex flex-col justify-between gap-4">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="relative flex-1 w-full flex flex-col justify-between gap-4"
+                  >
                     <div className="flex flex-col gap-4">
                       <p className="text-4xl md:text-6xl font-medium">
                         {mov.title}
                       </p>
-                      <div>
+                      <div className="flex gap-4 items-center flex-wrap">
                         <div className="text-[12px] flex items-center gap-1 font-medium">
                           <span className="text-white/40">Genre: </span>
                           <div className="flex items-center gap-1">
@@ -232,8 +233,8 @@ function MovieView() {
                           <i class="fa-solid fa-film text-primary"></i>
                         </button>
                       </div>
-                      <div className="flex relative flex-col gap-4">
-                        <p className="text-base font-medium">Branch</p>
+                      <div className="flex relative flex-col gap-2">
+                        <p className="text-base font-medium">Location</p>
                         <Dropd
                           placeholder="Select Branch"
                           list={branches.map((branch) => {
@@ -247,7 +248,7 @@ function MovieView() {
                       <div
                         className={`${
                           isBranch ? "flex" : "hidden"
-                        } flex-col gap-4`}
+                        } flex-col gap-2`}
                       >
                         <p className="text-base font-medium">Available Times</p>
                         <ul className="flex items-center gap-3">
@@ -258,7 +259,7 @@ function MovieView() {
                                 onClick={() => {
                                   toggleActive(index);
                                 }}
-                                className={`time-slot p-2 grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-xs w-16 h-16 ${togglestyle(
+                                className={`time-slot  grid place-items-center cursor-pointer border-2 border-white hover:bg-white/70 font-medium text-[0.6rem] w-12 h-12 ${togglestyle(
                                   index
                                 )}`}
                               >
@@ -312,52 +313,69 @@ function MovieView() {
                         Next <i class="fa-solid fa-arrow-right"></i>
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
                 {currentView === 1 && (
-                  <div className="relative w-full flex-1 flex flex-col justify-between gap-4">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="relative w-full flex-1 flex flex-col justify-between gap-4"
+                  >
                     <p className="text-4xl font-medium">{mov.title}</p>
                     <p className="text-lg font-medium ">Select snack</p>
                     <div className="flex-1 flex flex-col gap-4 overflow-scroll md:max-h-[45vh]">
                       <Snack
                         title={"fries"}
                         data={snackData}
+                        price={2000}
                         image={require("../assets/images/fries.png")}
                       />
                       <Snack
                         title={"hotdogs"}
                         data={snackData}
+                        price={1700}
                         image={require("../assets/images/hotdogs.png")}
                       />
                       <Snack
                         title={"soda"}
                         data={snackData}
+                        price={900}
                         image={require("../assets/images/soda.png")}
                       />
                       <Snack
                         title={"water"}
                         data={snackData}
+                        price={700}
                         image={require("../assets/images/water.png")}
                       />
                       <Snack
                         title={"popcorn"}
                         data={snackData}
+                        price={1500}
                         image={require("../assets/images/popcorn.png")}
                       />
                     </div>
                     <div className="mt-10 md:mt-6 md:mb-0 mb-10">
                       <button
-                        onClick={() => handleNext(2)}
+                        onClick={() => setRef(2)}
                         className="capitalize flex hover:bg-primary bg-white hover:text-white text-primary btna text-sm items-center justify-center gap-2 font-medium px-6 flex-grow min-w-[200px] py-2"
                       >
                         Proceed To Checkout
                         <i class="fa-solid fa-arrow-right"></i>
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
                 {currentView === 2 && (
-                  <div className="relative w-full flex-1 flex flex-col gap-4">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="relative w-full flex-1 flex flex-col gap-4"
+                  >
                     <p className="text-4xl font-medium">{mov.title}</p>
                     <p className="text-lg font-medium ">Receipt</p>
                     <div className="flex flex-col gap-4 mb-8">
@@ -366,26 +384,30 @@ function MovieView() {
                         <span className="flex-1 h-[1px] bg-white"></span>
                         <p>{1000 * initialForm.tickets}</p>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <p>Soda</p>
-                        <span className="flex-1 h-[1px] bg-white"></span>
-                        <p>900 x 2</p>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <p>Water</p>
-                        <span className="flex-1 h-[1px] bg-white"></span>
-                        <p>700 x 2</p>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <p>Popcorn - L</p>
-                        <span className="flex-1 h-[1px] bg-white"></span>
-                        <p>2300 x 2</p>
-                      </div>
+                      <p className="text-base font-medium ">Refreshments</p>
+                      {Object.keys(refreshments).map((key) => {
+                        const item = refreshments[key];
+                        return (
+                          <div className="flex items-center gap-3">
+                            <p className="capitalize">
+                              {item.title} x {item.quantity}
+                            </p>
+                            <span className="flex-1 h-[1px] bg-white"></span>
+                            <p>{item.price * item.quantity}</p>
+                          </div>
+                        );
+                      })}
                     </div>
                     <div className="flex items-center gap-3 border-t pt-8">
                       <p className="text-xl font-medium">Total</p>
                       <span className="flex-1 h-[1px] bg-white"></span>
-                      <p className="text-xl font-medium">8500</p>
+                      <p className="text-xl font-medium">
+                        {initialForm.tickets * 1000 +
+                          Object.values(refreshments).reduce(
+                            (acc, item) => acc + item.total,
+                            0
+                          )}
+                      </p>
                     </div>
                     <div className="mt-10 flex flex-row gap-4 md:w-max items-center md:mt-6 md:mb-0 mb-10">
                       <button
@@ -402,15 +424,23 @@ function MovieView() {
                         <i class="fa-solid fa-arrow-right text-primary"></i>
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
                 {currentView === 3 && (
-                  <div className="relative w-full flex-1 flex flex-col justify-center items-center gap-4">
-                    <p className="text-3xl font-semibold">Order Confirmed</p>
-                    <p className="text-xs">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="relative h-[80vh] md:h-full w-full flex-1 flex flex-col justify-center items-center gap-4"
+                  >
+                    <p className="text-3xl font-semibold text-center">
+                      Order Confirmed
+                    </p>
+                    <p className="text-xs text-center">
                       All details have been sent to your mail
                     </p>
-                    <div className="mt-10 flex flex-row gap-4 md:w-max items-center md:mt-6 md:mb-0 mb-10">
+                    <div className="mt-10 flex flex-wrap flex-row gap-4 md:w-max items-center md:mt-6 md:mb-0 mb-10">
                       <Link
                         to={"/"}
                         className="flex capitalize hover:bg-primary bg-white hover:text-white text-primary btna text-xs md:text-sm items-center justify-center gap-2 font-medium px-3 md:px-6 flex-grow md:min-w-[200px] py-2"
@@ -425,14 +455,14 @@ function MovieView() {
                         Return to home
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </div>
             </div>
           </div>
         );
       })}
-    </div>
+    </motion.div>
   );
 }
 

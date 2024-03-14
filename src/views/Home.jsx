@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import NowShowing from "../components/NowShowing";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { motion } from "framer-motion";
 
 function Home() {
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -49,7 +50,13 @@ function Home() {
         {/* <div className="bg-[url('../src/assets/images/topbanner.png')] bg-right md:bg-center absolute top-0 w-full bg-cover h-full"></div> */}
         <div className="h-[50vh] md:h-[80vh] bg-gradient-to-t from-black to-transparent w-full p-3 absolute top-0"></div>
       </section>
-      <div className="mt-[150px] md:mt-[300px] relative w-11/12 md:w-10/12 flex flex-col gap-8 ">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+        className="mt-[150px] md:mt-[300px] relative w-11/12 md:w-10/12 flex flex-col gap-8 "
+      >
         <section className="locations min-h-[80vh]">
           <p className="font-semibold text-2xl mb-7">Locations</p>
           <div className="grid place-items-center">
@@ -75,7 +82,7 @@ function Home() {
           </div>
         </section> */}
         <Footer />
-      </div>
+      </motion.div>
     </>
   );
 }
